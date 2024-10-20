@@ -38,12 +38,12 @@
         // Función que se ejecuta al cargar la página para obtener las herramientas disponibles
         async function loadAvailableTools() {
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbwK-IUcXlKlIA-GGkhAju55eWRt59zoTclIXFLcDXZFDTzlZyCuhbuq2oe89UcLIjWp/exec');  // Reemplaza con tu URL de Google Apps Script
+                const response = await fetch('https://script.google.com/macros/s/AKfycbzVX6TaOks7tSOx2YiIItugfehUlQcwhQvxTxEoro0WFJU1lmlY1stLN_Ld5Xu24XBq/exec');   
                 const data = await response.json();
                 const toolSelect = document.getElementById('tool');
-                toolSelect.innerHTML = '';  // Limpiar las opciones existentes
+                toolSelect.innerHTML = '';  
 
-                // Llenar el dropdown solo con herramientas "Disponibles"
+                // Llenar el dropdown 
                 data.herramientas.forEach(tool => {
                     if (tool.estado === "Disponible") {
                         const option = document.createElement('option');
@@ -57,7 +57,7 @@
             }
         }
 
-        // Cargar las herramientas disponibles cuando se carga la página
+        // Cargar las herramientas disponibles 
         window.onload = loadAvailableTools;
     </script>
 </head>
@@ -65,7 +65,7 @@
 
     <h1>Solicitud de Herramienta</h1>
 
-    <form id="toolRequestForm" action="https://script.google.com/macros/s/AKfycbwK-IUcXlKlIA-GGkhAju55eWRt59zoTclIXFLcDXZFDTzlZyCuhbuq2oe89UcLIjWp/exec" method="POST">
+    <form id="toolRequestForm" action="https://script.google.com/macros/s/AKfycbzVX6TaOks7tSOx2YiIItugfehUlQcwhQvxTxEoro0WFJU1lmlY1stLN_Ld5Xu24XBq/exec" method="POST">
         <label for="name">Nombre</label>
         <input type="text" id="name" name="name" required>
 
@@ -74,7 +74,7 @@
 
         <label for="tool">Herramienta</label>
         <select id="tool" name="tool" required>
-            <!-- Las herramientas disponibles se cargarán aquí dinámicamente -->
+            <!-- herramientas disponibles  -->
         </select>
 
         <button type="submit">Solicitar</button>
