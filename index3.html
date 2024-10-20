@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Herramienta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        form {
+            width: 300px;
+            margin: auto;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        // Función que se ejecuta al cargar la página para obtener las herramientas disponibles
+        async function loadAvailableTools() {
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwK-IUcXlKlIA-GGkhAju55eWRt59zoTclIXFLcDXZFDTzlZyCuhbuq2oe89UcLIjWp/exec');  // Reemplaza con tu URL de Google Apps Script
+                const data = await response.json();
+                const toolSelect = document.getElementById('tool');
+                toolSelect.innerHTML = '';  // Limpiar las opciones existentes
+
+                // Llenar el dropdown solo con herramientas "Disponibles"
+                data.herramientas.forEach(tool => {
+                    if (tool.estado === "Disponible") {
+                        const option = document.createElement('option');
+                        option.value = tool.nombre;
+                        option.textContent = tool.nombre;
+                        toolSelect.appendChild(option);
+                    }
+                });
+            } catch (error) {
+                console.error('Error cargando herramientas:', error);
+            }
+        }
+
+        // Cargar las herramientas disponibles cuando se carga la página
+        window.onload = loadAvailableTools;
+    </script>
+</head>
+<body>
+
+    <h1>Solicitud de Herramienta</h1>
+
+    <form id="toolRequestForm" action="https://script.google.com/macros/s/AKfycbwK-IUcXlKlIA-GGkhAju55eWRt59zoTclIXFLcDXZFDTzlZyCuhbuq2oe89UcLIjWp/exec" method="POST">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="matricula">Matrícula</label>
+        <input type="text" id="matricula" name="matricula" required>
+
+        <label for="tool">Herramienta</label>
+        <select id="tool" name="tool" required>
+            <!-- Las herramientas disponibles se cargarán aquí dinámicamente -->
+        </select>
+
+        <button type="submit">Solicitar</button>
+    </form>
+
+</body>
+</html>
